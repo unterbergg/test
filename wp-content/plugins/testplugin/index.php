@@ -28,25 +28,24 @@ function pplr_shortcode() {
     );
 
     $popularPost = get_posts($args);
-
     if($popularPost) {
         foreach ($popularPost as $key => $post) {
             setup_postdata($post);
+            if(get_comments_number()) {
+                $title = get_the_title();
+                $thumb = get_the_post_thumbnail( get_the_ID(), 'custom-size' );
+                $excerpt = get_the_excerpt();
+                $date = get_the_date();
 
-            $title = get_the_title();
-            $thumb = get_the_post_thumbnail( get_the_ID(), 'custom-size' );
-            $excerpt = get_the_excerpt();
-            $date = get_the_date();
+                $comments_number = get_comments_number();
+                if ( $comments_number > 1 ) {
+                    $comments = $comments_number . __(' Comments');
+                }
+                elseif ( $comments_number == 1 ) {
+                    $comments = __('1 Comment');
+                }
 
-            $comments_number = get_comments_number();
-            if ( $comments_number > 1 ) {
-                $comments = $comments_number . __(' Comments');
-            }
-            elseif ( $comments_number == 1 ) {
-                $comments = __('1 Comment');
-            }
-
-            $result = "<article class='pplr__post' id='post-{$post->ID}'>
+                $result = "<article class='pplr__post' id='post-{$post->ID}'>
                 <div class='pplr__image'>
                     {$thumb}
                 </div>
@@ -65,10 +64,10 @@ function pplr_shortcode() {
                     </span>
                 </div>
             </article>";
+            }
         }
         wp_reset_postdata();
     }
-
     return $result;
 }
 
