@@ -1,0 +1,33 @@
+.pplr__post {
+    padding: 20px;
+    border-radius: 4px;
+    border: solid 1px grey;
+}
+.pplr__image {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+.pplr__image img {
+    display: block;
+    transition: 300ms;
+}
+.pplr__image:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(90deg, rgba(204,204,204,1) 0%, rgba(125,233,255,1) 100%);
+    opacity: 0;
+    transition: opacity 300ms;
+    z-index: 1;
+}
+.pplr__image:hover:before {
+    opacity: 0.7;
+}
+.pplr__image:hover img {
+    transform: scale(1.2) rotate(30deg);
+}
